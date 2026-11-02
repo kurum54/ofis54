@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Akademi sınıf randevu sistemi: 3 sınıf için online randevu oluşturun, düzenleyin veya iptal edin.">
+  <title>Akademi Sınıf Randevu</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f766e'/%3E%3Cpath d='M16 40V24l16-9 16 9v16l-16 9-16-9z' fill='none' stroke='%23fff' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Ana sayfa">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M8 24V14l12-7 12 7v10L20 31 8 24Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>
+        </span>
+        <span class="brand-text">
+          <strong data-app-name>Akademi</strong>
+          <small>Sınıf Randevu</small>
+        </span>
+      </a>
+
+      <nav class="tabs" aria-label="Sayfalar">
+        <button type="button" class="tab is-active" data-view="book">Randevu Al</button>
+        <button type="button" class="tab" data-view="my">Randevularım</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- ---------------------------------------------------------------- -->
+    <!-- Randevu al                                                       -->
+    <!-- ---------------------------------------------------------------- -->
+    <section id="view-book" class="view">
+      <div id="booking-area">
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">Online randevu</span>
+            <h1>Sınıfınızı <em>birkaç tıkla</em> ayırtın.</h1>
+            <p class="lede">
+              Üç sınıf, esnek saatler. Tarihinizi seçin, uygun aralığı bulun;
+              onayı ve hatırlatmayı biz gönderelim.
+            </p>
+          </div>
+          <ul class="facts" aria-label="Kısa bilgiler">
+            <li><strong id="fact-classes">3</strong><span>sınıf</span></li>
+            <li><strong id="fact-hours">09–21</strong><span>çalışma saati</span></li>
+            <li><strong id="fact-lock">3 gün</strong><span>değişiklik kilidi</span></li>
+          </ul>
+        </div>
+
+        <div class="layout">
+          <form id="booking-form" class="card form-card" novalidate>
+            <section class="step">
+              <div class="step-head">
+                <span class="step-no">1</span>
+                <div>
+                  <h2>Tarih ve sınıf</h2>
+                  <p>Randevu almak istediğiniz günü ve sınıfı seçin.</p>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="date">Tarih</label>
+                <input type="date" id="date" name="date" required>
+              </div>
+
+              <div class="class-grid" id="class-grid" role="radiogroup" aria-label="Sınıf seçimi"></div>
+              <p id="busy-info" class="hint-line" aria-live="polite">Sınıf ve tarih seçtiğinizde doluluk bilgisi görünür.</p>
+            </section>
+
+            <section class="step">
+              <div class="step-head">
+                <span class="step-no">2</span>
+                <div>
+                  <h2>Saat aralığı</h2>
+                  <p>Uygun başlangıç ve bitiş saatini seçin.</p>
+                </div>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="start_time">Başlangıç</label>
+                  <select id="start_time" name="start_time" required></select>
+                </div>
+                <div class="field">
+                  <label for="end_time">Bitiş</label>
+                  <select id="end_time" name="end_time" required></select>
+                </div>
+              </div>
+              <p id="duration-note" class="hint-line" aria-live="polite">Önce tarih ve sınıf seçin.</p>
+            </section>
+
+            <section class="step">
+              <div class="step-head">
+                <span class="step-no">3</span>
+                <div>
+                  <h2>İletişim bilgileri</h2>
+                  <p>Onay ve hatırlatmalar bu bilgilerle gönderilir.</p>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="full_name">Ad soyad</label>
+                <input type="text" id="full_name" name="full_name" autocomplete="name" maxlength="100" placeholder="Adınız ve soyadınız" required>
+              </div>
+
+              <div class="field-row">
+                <div class="field">
+                  <label for="email">E-posta</label>
+                  <input type="email" id="email" name="email" autocomplete="email" maxlength="160" placeholder="ornek@eposta.com" required>
+                </div>
+                <div class="field">
+                  <label for="phone">Telefon</label>
+                  <input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="40" placeholder="0532 123 45 67" required>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="note">Not <span class="optional">(isteğe bağlı)</span></label>
+                <textarea id="note" name="note" rows="2" maxlength="500" placeholder="Eklemek istediğiniz bir bilgi var mı?"></textarea>
+              </div>
+            </section>
+
+            <div id="form-error" class="alert" role="alert" hidden></div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="submit-btn">
+              <span class="btn-label">Randevuyu oluştur</span>
+            </button>
+            <p class="form-footnote">Randevu oluşturarak iletişim bilgilerinizin randevu yönetimi için kullanılmasını kabul etmiş olursunuz.</p>
+          </form>
+
+          <aside class="sidebar">
+            <div class="card summary-card">
+              <h2>Randevu özeti</h2>
+              <dl class="summary-list">
+                <div><dt>Tarih</dt><dd id="sum-date">—</dd></div>
+                <div><dt>Sınıf</dt><dd id="sum-class">—</dd></div>
+                <div><dt>Saat</dt><dd id="sum-time">—</dd></div>
+                <div><dt>Süre</dt><dd id="sum-duration">—</dd></div>
+              </dl>
+              <p class="summary-note">
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2.5 3 5.5v4.2c0 3.9 2.8 6.7 7 7.8 4.2-1.1 7-3.9 7-7.8V5.5l-7-3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m7 10 2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Randevunuz onaylandığında e-posta ile bilgilendirileceksiniz.
+              </p>
+            </div>
+
+            <div class="card rules-card">
+              <h2>Bilmeniz gerekenler</h2>
+              <ul>
+                <li>Randevular <strong id="rule-slot">30 dakikalık</strong> aralıklarla alınır.</li>
+                <li>Randevuya <strong id="rule-lock">3 günden az</strong> kaldığında düzenleme kilitlenir.</li>
+                <li>İptal ettiğiniz saatler yeniden rezervasyona açılır.</li>
+                <li id="rule-reminders">Hatırlatma e-postası randevudan <strong>24 saat</strong> ve <strong>2 saat</strong> önce gönderilir.</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <!-- Başarı ekranı -->
+      <div id="success-panel" class="success-panel" hidden>
+        <div class="card success-card">
+          <div class="success-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="m8 16.5 5 5L24 10.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="eyebrow">Onaylandı</span>
+          <h1>Randevunuz oluşturuldu.</h1>
+          <p class="lede" id="success-message">Randevu detaylarınız aşağıda. Onay e-postası gönderildi.</p>
+
+          <div class="ticket" id="success-ticket">
+            <div class="ticket-main">
+              <span class="ticket-label">Randevu kodu</span>
+              <strong id="success-code">RND-000000</strong>
+              <span class="ticket-date" id="success-date">—</span>
+            </div>
+            <div class="ticket-side">
+              <div><span>Sınıf</span><strong id="success-class">—</strong></div>
+              <div><span>Saat</span><strong id="success-time">—</strong></div>
+            </div>
+          </div>
+
+          <div class="success-actions">
+            <a class="btn btn-primary" id="success-manage" href="/">Randevuyu yönet</a>
+            <button type="button" class="btn btn-ghost" id="new-booking">Yeni randevu oluştur</button>
+          </div>
+          <p class="muted small" id="success-mail-note"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------------- -->
+    <!-- Randevularım                                                     -->
+    <!-- ---------------------------------------------------------------- -->
+    <section id="view-my" class="view" hidden>
+      <div class="page-head">
+        <span class="eyebrow">Randevu yönetimi</span>
+        <h1>Randevularım</h1>
+        <p class="lede">E-posta ve telefonunuzla randevularınızı bulun; düzenleyin veya iptal edin.</p>
+      </div>
+
+      <div class="layout layout-my">
+        <div class="card lookup-card">
+          <h2>Randevu sorgula</h2>
+          <form id="lookup-form" novalidate>
+            <div class="field">
+              <label for="lookup-email">E-posta</label>
+              <input type="email" id="lookup-email" autocomplete="email" placeholder="ornek@eposta.com" required>
+            </div>
+            <div class="field">
+              <label for="lookup-phone">Telefon</label>
+              <input type="tel" id="lookup-phone" autocomplete="tel" placeholder="0532 123 45 67" required>
+            </div>
+            <div id="lookup-error" class="alert" role="alert" hidden></div>
+            <button type="submit" class="btn btn-primary btn-block" id="lookup-btn">Randevularımı bul</button>
+          </form>
+          <p class="muted small">Randevu oluştururken kullandığınız e-posta ve telefon numarası gereklidir.</p>
+        </div>
+
+        <div class="results" id="my-results" aria-live="polite">
+          <div class="empty-state card" id="results-empty">
+            <span class="empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none"><rect x="5" y="7" width="22" height="20" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M5 12h22M11 4v5M21 4v5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M10 17h5M10 22h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Henüz randevu listelenmedi</h3>
+            <p>Soldaki formu doldurarak randevularınızı görüntüleyebilirsiniz.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>© <span id="year">2026</span> Akademi Sınıf Randevu</span>
+      <a href="/admin">Yönetim</a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Düzenleme penceresi -->
+  <dialog id="edit-dialog" class="dialog">
+    <form id="edit-form" novalidate>
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">Randevu</span>
+          <h2>Randevuyu düzenle</h2>
+        </div>
+        <button type="button" class="icon-btn" data-close-dialog aria-label="Kapat">×</button>
+      </div>
+
+      <input type="hidden" id="edit-token">
+
+      <div class="field">
+        <label for="edit-date">Tarih</label>
+        <input type="date" id="edit-date" required>
+      </div>
+
+      <div class="field">
+        <span class="label">Sınıf</span>
+        <div class="class-grid compact" id="edit-class-grid" role="radiogroup" aria-label="Sınıf seçimi"></div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="edit-start">Başlangıç</label>
+          <select id="edit-start" required></select>
+        </div>
+        <div class="field">
+          <label for="edit-end">Bitiş</label>
+          <select id="edit-end" required></select>
+        </div>
+      </div>
+      <p id="edit-hint" class="hint-line">—</p>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="edit-name">Ad soyad</label>
+          <input type="text" id="edit-name" maxlength="100" required>
+        </div>
+        <div class="field">
+          <label for="edit-email">E-posta</label>
+          <input type="email" id="edit-email" maxlength="160" required>
+        </div>
+      </div>
+      <div class="field">
+        <label for="edit-phone">Telefon</label>
+        <input type="tel" id="edit-phone" maxlength="40" required>
+      </div>
+      <div class="field">
+        <label for="edit-note">Not</label>
+        <textarea id="edit-note" rows="2" maxlength="500"></textarea>
+      </div>
+
+      <div id="edit-error" class="alert" role="alert" hidden></div>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-ghost" data-close-dialog>Vazgeç</button>
+        <button type="submit" class="btn btn-primary" id="edit-submit">Değişiklikleri kaydet</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- İptal onayı -->
+  <dialog id="cancel-dialog" class="dialog dialog-sm">
+    <div class="dialog-head">
+      <div>
+        <span class="eyebrow">İptal</span>
+        <h2>Randevu iptal edilsin mi?</h2>
+      </div>
+      <button type="button" class="icon-btn" data-close-dialog aria-label="Kapat">×</button>
+    </div>
+    <p class="muted" id="cancel-summary">—</p>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-ghost" data-close-dialog>Vazgeç</button>
+      <button type="button" class="btn btn-danger" id="cancel-confirm">Randevuyu iptal et</button>
+    </div>
+  </dialog>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

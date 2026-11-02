@@ -1,0 +1,8 @@
+2026-11-01 23:36:12,634 | INFO     | randevu.app | Akademi Sınıf Randevu başlatıldı. Veritabanı: C:\Users\YILMAZ GERMİ\Documents\Varsayılan Proje\data\randevu.db
+2026-11-01 23:36:12,634 | WARNING  | randevu.app | SMTP yapılandırılmadı. E-postalar gönderilmeyecek, logs/outbox klasörüne yazılacak.
+2026-11-02 22:07:20,400 | INFO     | randevu.app | Akademi Sınıf Randevu başlatıldı. Veritabanı: C:\Users\administrator\Desktop\Varsayılan Proje\data\randevu.db
+2026-11-02 22:07:20,400 | WARNING  | randevu.app | SMTP yapılandırılmadı. E-postalar gönderilmeyecek, logs/outbox klasörüne yazılacak.
+2026-11-03 01:21:24,832 | INFO     | randevu.app | Akademi Sınıf Randevu başlatıldı. Veritabanı: C:\Users\administrator\Desktop\Varsayılan Proje\data\randevu.db
+2026-11-03 01:21:24,832 | WARNING  | randevu.app | SMTP yapılandırılmadı. E-postalar gönderilmeyecek, logs/outbox klasörüne yazılacak.
+2026-11-03 02:02:25,881 | INFO     | randevu.app | Akademi Sınıf Randevu başlatıldı. Veritabanı: C:\Users\administrator\Desktop\Varsayılan Proje\data\randevu.db
+2026-11-03 02:02:25,881 | WARNING  | randevu.app | SMTP yapılandırılmadı. E-postalar gönderilmeyecek, logs/outbox klasörüne yazılacak.

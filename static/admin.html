@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Randevu Panosu | Akademi</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f766e'/%3E%3Cpath d='M16 40V24l16-9 16 9v16l-16 9-16-9z' fill='none' stroke='%23fff' stroke-width='4' stroke-linejoin='round'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Siteye dön">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M8 24V14l12-7 12 7v10L20 31 8 24Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle cx="20" cy="20" r="3" fill="currentColor"/></svg>
+        </span>
+        <span class="brand-text">
+          <strong>Akademi</strong>
+          <small>Randevu Panosu</small>
+        </span>
+      </a>
+      <a class="btn btn-ghost btn-sm" href="/">Siteye dön</a>
+    </div>
+  </header>
+
+  <main class="wrap admin-main">
+    <!-- Giriş -->
+    <section id="login-view" class="admin-login">
+      <div class="card admin-login-card">
+        <span class="eyebrow">Yönetim</span>
+        <h1>Randevu panosu</h1>
+        <p class="muted">Tüm randevuları görüntülemek ve hatırlatmaları yönetmek için şifrenizi girin.</p>
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="admin-password">Yönetim şifresi</label>
+            <input type="password" id="admin-password" autocomplete="current-password" placeholder="••••••••" required>
+          </div>
+          <div id="login-error" class="alert" role="alert" hidden></div>
+          <button type="submit" class="btn btn-primary btn-block" id="login-btn">Giriş yap</button>
+        </form>
+        <p class="muted small">Şifre, <code>.env</code> dosyasındaki <code>ADMIN_PASSWORD</code> değeridir.</p>
+      </div>
+    </section>
+
+    <!-- Pano -->
+    <section id="dashboard" hidden>
+      <div class="admin-head">
+        <div>
+          <span class="eyebrow">Yönetim</span>
+          <h1>Randevu panosu</h1>
+        </div>
+        <div class="admin-head-actions">
+          <button type="button" class="btn btn-ghost btn-sm" id="run-reminders">Hatırlatmaları çalıştır</button>
+          <button type="button" class="btn btn-ghost btn-sm" id="logout">Çıkış</button>
+        </div>
+      </div>
+
+      <div id="mode-banner" class="mode-banner"></div>
+      <div class="stats" id="stats"></div>
+
+      <div class="card admin-panel">
+        <div class="panel-head">
+          <h2>Randevular</h2>
+          <span class="muted small" id="booking-count"></span>
+        </div>
+
+        <div class="admin-filters">
+          <div class="field">
+            <label for="filter-from">Başlangıç</label>
+            <input type="date" id="filter-from">
+          </div>
+          <div class="field">
+            <label for="filter-to">Bitiş</label>
+            <input type="date" id="filter-to">
+          </div>
+          <div class="field">
+            <label for="filter-class">Sınıf</label>
+            <select id="filter-class">
+              <option value="">Tümü</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="filter-status">Durum</label>
+            <select id="filter-status">
+              <option value="confirmed">Onaylı</option>
+              <option value="cancelled">İptal edilen</option>
+              <option value="all" selected>Tümü</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-primary" id="filter-apply">Filtrele</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Tarih</th>
+                <th>Saat</th>
+                <th>Sınıf</th>
+                <th>Kişi / Kod</th>
+                <th>İletişim</th>
+                <th>Durum</th>
+                <th>Düzenleme</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="bookings-body"></tbody>
+          </table>
+        </div>
+        <p id="bookings-empty" class="muted small" hidden>Seçilen aralıkta randevu bulunmuyor.</p>
+      </div>
+
+      <div class="card admin-panel">
+        <div class="panel-head">
+          <h2>Hatırlatma kayıtları</h2>
+          <button type="button" class="btn btn-ghost btn-sm" id="refresh-reminders">Yenile</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Gönderim</th>
+                <th>Randevu</th>
+                <th>Alıcı</th>
+                <th>Eşik</th>
+                <th>Durum</th>
+                <th>Detay</th>
+              </tr>
+            </thead>
+            <tbody id="reminders-body"></tbody>
+          </table>
+        </div>
+        <p id="reminders-empty" class="muted small" hidden>Henüz hatırlatma kaydı yok.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/static/js/admin.js"></script>
+</body>
+</html>
